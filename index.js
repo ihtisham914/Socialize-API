@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import AuthRouter from './Routes/AuthRoute.js';
 import UserRouter from './Routes/UserRoute.js';
+import PostRouter from './Routes/PostRoute.js';
 
 
 dotenv.config()
@@ -11,16 +12,17 @@ dotenv.config()
 const app = express();
 
 // Middlewares
-app.use(bodyParser.json({limit: '30mb', extented: true}));
-app.use(bodyParser.urlencoded({limit: '30mb', extented: true}));
+app.use(bodyParser.json({ limit: '30mb', extented: true }));
+app.use(bodyParser.urlencoded({ limit: '30mb', extented: true }));
 
 
 // Connecting to Mongo and server
-mongoose.connect(process.env.MONGO_DB).then(()=>{
-    app.listen(8000, ()=> console.log("Database connected, Server Listening..."))
-}).catch((error)=> console.log(error))
+mongoose.connect(process.env.MONGO_DB).then(() => {
+    app.listen(8000, () => console.log("Database connected, Server Listening..."))
+}).catch((error) => console.log(error))
 
 
 // Routes
 app.use('/auth', AuthRouter);
-app.use('/user', UserRouter)
+app.use('/user', UserRouter);
+app.use('/post', PostRouter);
